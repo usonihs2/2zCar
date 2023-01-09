@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/view/forecast/brand_screen.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
 import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
+import 'package:flutter_project/view/user/passwordConfirm_screen.dart';
 import 'package:get/get.dart';
 
 import 'myforecastHistory_screen.dart';
@@ -60,9 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                Get.to(const MyinfoUpdateScreen(),
-                    transition: Transition.upToDown,
-                    duration: const Duration(seconds: 1));
+                Get.to(() => const PasswordConfirmScreen());
+                // Get.to(const MyinfoUpdateScreen(),
+                //     transition: Transition.cupertino,
+                //     duration: const Duration(seconds: 1));
               },
               child: const Text('회원정보 수정'),
             ),
