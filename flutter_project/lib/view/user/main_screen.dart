@@ -101,7 +101,7 @@ class _MainScreenState extends State<MainScreen> {
                     minimumSize: const Size(380, 40),
                   ),
                   child: const Text(
-                    '내 차 가격예측',
+                    '내 차 가격예측하기',
                   ),
                 ),
               ),
