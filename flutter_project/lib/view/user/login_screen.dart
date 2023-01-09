@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
-import 'package:flutter_project/view/user/tabbar_screen.dart';
+import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -314,7 +314,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   Navigator.of(context).pop();
                   _saveSharedPreferences();
                   Get.off(
-                    const TabTab(),
+                    const UserTabbar(),
                   )?.then((value) => autoLogin == true ? null : rebuildData());
                   //main 에서 뒤로가기하고 autoLogin이 true면 textfield채워져있고 아니면 비우기
                 },

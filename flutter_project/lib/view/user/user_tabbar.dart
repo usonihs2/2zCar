@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/login_screen.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
 
-class TabTab extends StatefulWidget {
-  const TabTab({super.key});
+class UserTabbar extends StatefulWidget {
+  const UserTabbar({super.key});
 
   @override
-  State<TabTab> createState() => _TabTabState();
+  State<UserTabbar> createState() => _UserTabbarState();
 }
 
-class _TabTabState extends State<TabTab> {
+class _UserTabbarState extends State<UserTabbar> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
