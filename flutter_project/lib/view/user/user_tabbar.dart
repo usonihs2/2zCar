@@ -8,62 +8,64 @@ class UserTabbar extends StatefulWidget {
   State<UserTabbar> createState() => _UserTabbarState();
 }
 
-class _UserTabbarState extends State<UserTabbar> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  final List<Widget> _widgetOptions = <Widget>[
-    const MainScreen(),
-    const MainScreen(),
-    const MainScreen(),
-    //여기에 가격 예측 /마이페이지 추가
-    //const forecast_tabbar(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class _UserTabbarState extends State<UserTabbar>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    controller = TabController(length: 3, vsync: this);
+    //이 페이지 2개랑 연결 위에 떠있는 것 앱바처럼
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-
+    controller.dispose();
     super.dispose();
+    //앱 죽기전 써야함 메모리....
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.text_snippet),
-            label: '가격 예측 기록',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '마이페이지',
-          ),
+      body: TabBarView(
+        controller: controller,
+        //내가만든 컨트롤러
+        children: const [
+          MainScreen(),
+          MainScreen(),
+          MainScreen(),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+      ),
+      bottomNavigationBar: Container(
+        //얘는 자동 로우 로우 붙일 필요 없다.
+        color: Colors.yellowAccent,
+        height: 100,
+        child: TabBar(
+          controller: controller,
+          labelColor: Colors.blue,
+          indicatorColor: Colors.red,
+
+          //현재페이지 표시라인
+          //컨트롤러에 신호 랭쓰기억
+          tabs: const [
+            Tab(
+              icon: Icon(Icons.home),
+              text: "홈",
+            ),
+            Tab(
+              icon: Icon(Icons.text_snippet),
+              text: '가격 예측 기록',
+            ),
+            Tab(
+              icon: Icon(Icons.people),
+              text: '마이페이지',
+            ),
+          ],
+        ),
       ),
     );
   }
