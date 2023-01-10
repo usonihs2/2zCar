@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
+import 'package:flutter_project/view/user/signup_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
 
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                       padding: const EdgeInsets.fromLTRB(0, 0, 90, 0),
                       child: TextButton(
                         onPressed: () {
-                          //회원가입 페이지와 연결
+                          Get.to(() => const SignupScreen());
                         },
                         child: const Text(
                           '회원가입',

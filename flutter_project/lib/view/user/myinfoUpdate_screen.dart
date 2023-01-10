@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
+// 회원 정보 수정 화면
 class MyinfoUpdateScreen extends StatefulWidget {
   const MyinfoUpdateScreen({super.key});
 
@@ -50,6 +51,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
       appBar: AppBar(
         title: const Text('2Z 헤이딜러'),
         automaticallyImplyLeading: false,
+        // 뒤로가기 버튼
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -150,7 +152,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
 
   // --- functions
   // date: 2022.12.29
-  // desc: update user info
+  // desc: 유저 정보 수정
   updateUserInfo() async {
     var url = Uri.parse(// data transfer by get
         'http://localhost:8080/Flutter/streetCat_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
@@ -159,7 +161,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   }
 
   // date: 2022.12.22
-  // desc: update complete msg
+  // desc: 수정 완료 메세지
   _showUpdateDialog(BuildContext context) {
     showDialog(
         context: context,

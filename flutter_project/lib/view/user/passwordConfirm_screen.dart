@@ -38,6 +38,7 @@ class _PasswordConfirmScreenState extends State<PasswordConfirmScreen> {
             ),
             TextButton(
               onPressed: () {
+                // 'test' 부분에 유저 비밀번호를 넣는다
                 if (passwordCheckController.text.trim() == 'test') {
                   Get.to(() => const MyinfoUpdateScreen());
                 } else {
