@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'myinfoUpdate_screen.dart';
 
+// 회원정보 수정 전, 비밀번호 입력하여 본인 확인하는 화면
 class PasswordConfirmScreen extends StatefulWidget {
   const PasswordConfirmScreen({super.key});
 
@@ -54,7 +55,7 @@ class _PasswordConfirmScreenState extends State<PasswordConfirmScreen> {
   }
 
   // date: 2022.12.22
-  // desc: update complete msg
+  // desc: 비밀번호 불일치 오류 메세지
   _errorDialog(BuildContext context) {
     showDialog(
         context: context,
