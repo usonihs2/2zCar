@@ -44,7 +44,8 @@ dependencies:
   intl: ^0.18.0
   shared_preferences: ^2.0.15
   get: ^4.6.5
-
+  kpostal: ^0.5.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
