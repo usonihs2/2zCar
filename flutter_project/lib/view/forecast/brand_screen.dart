@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_project/model/forecast/repository.dart';
 import 'package:flutter_project/view/forecast/model_screen.dart';
 
@@ -38,13 +39,6 @@ class _BrandScreen extends State<BrandScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white10,
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +54,7 @@ class _BrandScreen extends State<BrandScreen> {
                     height: 100,
                   ),
                   SizedBox(
-                    width: 300,
+                    width: 250,
                     height: 200,
                     child: CupertinoPicker(
                         backgroundColor: Colors.white10,
@@ -70,6 +64,7 @@ class _BrandScreen extends State<BrandScreen> {
                         onSelectedItemChanged: (value) {
                           setState(() {
                             selectedItem = value;
+                            Repository.imagePath = "${images[selectedItem]}";
                           });
                         },
                         children: [
@@ -82,27 +77,27 @@ class _BrandScreen extends State<BrandScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                    ),
-                    onPressed: () {
-                      Repository.imagePath = "${images[selectedItem]}";
-                      print(Repository.imagePath);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ModelScreen();
-                      }));
-                    },
-                    child: const Text("다음"),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(15.0),
+            //   child: Column(
+            //     children: [
+            //       ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           backgroundColor: Colors.black,
+            //         ),
+            //         onPressed: () {
+            //           Repository.imagePath = "${images[selectedItem]}";
+            //           print(Repository.imagePath);
+            //           Navigator.push(context,
+            //               MaterialPageRoute(builder: (context) {
+            //             return ModelScreen();
+            //           }));
+            //         },
+            //         child: const Text("다음"),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

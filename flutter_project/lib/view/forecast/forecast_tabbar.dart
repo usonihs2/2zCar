@@ -4,6 +4,8 @@ import 'brand_screen.dart';
 import 'detail_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'model_screen.dart';
+
 class ForecastTabbar extends StatefulWidget {
   const ForecastTabbar({super.key});
 
@@ -18,7 +20,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -31,7 +33,6 @@ class _ForecastTabbarState extends State<ForecastTabbar>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      initialIndex: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('data'),
@@ -48,9 +49,9 @@ class _ForecastTabbarState extends State<ForecastTabbar>
                 icon: Icon(Icons.abc),
                 // text: ,
               ),
-              // Tab(
-              //   icon: Icon(Icons.abc),
-              // ),
+              Tab(
+                icon: Icon(Icons.abc),
+              ),
             ],
           ),
         ),
@@ -59,14 +60,15 @@ class _ForecastTabbarState extends State<ForecastTabbar>
           controller: tabController,
           children: const [
             BrandScreen(),
-            // ModelScreen(),
+            ModelScreen(),
             DetailScreen(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
-              tabController.index < 1
+              if (tabController.index < 2) {}
+              tabController.index < 2
                   ? tabController.index = tabController.index + 1
                   : Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
