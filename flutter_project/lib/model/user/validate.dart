@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'user_message.dart';
 
+// signup_screen.dart에서 불러다 쓰는 클래스
 class CheckValidate {
-  // date: 2023.01.00
+  // date: 2023.01.09
   // desc: 아이디 유효성 검사
   String? validateId(FocusNode focusNode, String value) {
     if (value.isEmpty) {
@@ -20,7 +21,7 @@ class CheckValidate {
     }
   }
 
-  // date: 2023.01.00
+  // date: 2023.01.09
   // desc: 비밀번호 유효성 검사
   String? validatePassword(FocusNode focusNode, String value) {
     if (value.isEmpty) {
@@ -38,7 +39,7 @@ class CheckValidate {
     }
   }
 
-  // date: 2023.01.00
+  // date: 2023.01.09
   // desc: 비밀번호 재입력 유효성 검사
   String? validatePasswordChk(FocusNode focusNode, String value) {
     if (value.isEmpty) {
@@ -54,7 +55,24 @@ class CheckValidate {
     }
   }
 
-  // date: 2023.01.00
+  // date: 2023.01.09
+  // desc: 이름 유효성 검사
+  String? validateName(FocusNode focusNode, String value) {
+    if (value.isEmpty) {
+      focusNode.requestFocus();
+      return '이름을 입력하세요.';
+    } else {
+      RegExp regExp = RegExp(r'^[a-zA-z가-힣]{2,12}$');
+      if (!regExp.hasMatch(value)) {
+        focusNode.requestFocus();
+        return '한글이나 영어로 2자 이상 12자 이내로 입력하세요.';
+      } else {
+        return null;
+      }
+    }
+  }
+
+  // date: 2023.01.09
   // desc: 전화번호 유효성 검사
   String? validatePhoneNo(FocusNode focusNode, String value) {
     if (value.isEmpty) {
@@ -71,7 +89,7 @@ class CheckValidate {
     }
   }
 
-  // date: 2023.01.00
+  // date: 2023.01.09
   // desc: 이메일 유효성 검사
   String? validateEmail(FocusNode focusNode, String value) {
     if (value.isEmpty) {
