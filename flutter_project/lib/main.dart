@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_project/view/user/login_screen.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
@@ -18,6 +19,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const LoginScreen(),
+      // getPages: [
+      //   GetPage(
+      //     name: '/ForecastTabbar',
+      //     page: () => const ForecastTabbar(),
+      //   ),
+      // ],
     );
   }
 }
