@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/user/user_message.dart';
 import 'package:kpostal/kpostal.dart';
@@ -69,7 +71,7 @@ class _RegExpState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Validate Test'),
+        title: const Text('회원 가입'),
       ),
       body: Form(
         key: formKey,
@@ -98,16 +100,37 @@ class _RegExpState extends State<SignupScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: TextFormField(
-              controller: userIdController,
-              focusNode: _idFocus,
-              decoration: _textFormDecoration('아이디', '아이디를 입력해주세요.'),
-              validator: ((value) {
-                CheckValidate().validateId(_idFocus, value!) == null
-                    ? idChk = true
-                    : null;
-                return CheckValidate().validateId(_idFocus, value);
-              }),
+            child: Row(
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    controller: userIdController,
+                    focusNode: _idFocus,
+                    decoration: _textFormDecoration('아이디', '아이디를 입력해주세요.'),
+                    validator: ((value) {
+                      CheckValidate().validateId(_idFocus, value!) == null
+                          ? idChk = true
+                          : null;
+                      return CheckValidate().validateId(_idFocus, value);
+                    }),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  child: TextButton(
+                    onPressed: (() {
+                      idDuplicateChk(userIdController.text.trim());
+                    }),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue)),
+                    child: const Text(
+                      '중복 검사',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -336,20 +359,18 @@ class _RegExpState extends State<SignupScreen> {
         onPressed: (() {
           formKey.currentState!.validate();
           // 주소 텍스트필드 입력 값에 따라 언더라인 및 헬퍼텍스트 색깔 변경
-          // if (addressController.text.isEmpty) {
-          //   setState(() {
-          //     addressUnderlineColorChk = true;
-          //     addressHelperTextColorChk = true;
-          //   });
-          //   // 각 입력 값 확인
-          // } else
-          // if (idChk &
-          //     emailChk &
-          //     passwordChk &
-          //     passwordChkChk &
-          //     nameChk &
-          //     phoneNoChk)
-          {
+          if (addressController.text.isEmpty) {
+            setState(() {
+              addressUnderlineColorChk = true;
+              addressHelperTextColorChk = true;
+            });
+            // 각 입력 값 확인
+          } else if (idChk &
+              emailChk &
+              passwordChk &
+              passwordChkChk &
+              nameChk &
+              phoneNoChk) {
             userId = userIdController.text;
             userPw = userPwController.text;
             userName = userNameController.text;
@@ -401,6 +422,64 @@ class _RegExpState extends State<SignupScreen> {
                   '확인',
                   style: TextStyle(color: Colors.white),
                 ),
+              ),
+            ],
+          );
+        });
+  }
+
+  // date: 2023.01.11
+  // desc: ID 중복 검사
+  idDuplicateChk(String userId) async {
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/usedcar_idChk_flutter.jsp?userId=$userId');
+    var idDuplicateChk = await http.get(url);
+    var dataConvertedJSON = json.decode(utf8.decode(idDuplicateChk.bodyBytes));
+    List result = dataConvertedJSON['results'];
+    if (result[0]['check'] == '0') {
+      // ignore: use_build_context_synchronously
+      _showIdChkSuccessDialog(context);
+    } else {
+      idChk = false;
+      // ignore: use_build_context_synchronously
+      _errorIdChkDialog(context);
+    }
+  }
+
+  // date: 2023.01.11
+  // desc: ID 중복 검사 실패 메세지
+  _errorIdChkDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text('다른 아이디를 입력해주세요.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  // date: 2023.01.11
+  // desc: ID 중복 검사 성공 메세지
+  _showIdChkSuccessDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('ID 사용 가능'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
               ),
             ],
           );
