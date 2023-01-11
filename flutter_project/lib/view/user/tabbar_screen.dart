@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/login_screen.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
