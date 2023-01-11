@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
+import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 
 class UserTabbar extends StatefulWidget {
   const UserTabbar({super.key});
@@ -39,7 +40,7 @@ class _UserTabbarState extends State<UserTabbar>
           children: const [
             MainScreen(),
             MainScreen(),
-            MainScreen(),
+            MyinfoUpdateScreen(),
           ],
         ),
         bottomNavigationBar: Container(
