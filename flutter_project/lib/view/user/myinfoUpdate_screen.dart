@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/user/user_message.dart';
+import 'package:flutter_project/view/user/login_screen.dart';
+import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
@@ -31,18 +34,13 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   void initState() {
     super.initState();
 
-    // userIdController = TextEditingController(text: Message.userId);
-    // userPwController = TextEditingController(text: Message.userPw);
-    // userNameController = TextEditingController(text: Message.userName);
-    // userPhoneController = TextEditingController(text: Message.userPhone);
-    // userEmailController = TextEditingController(text: Message.userEmail);
-    // userAddressController = TextEditingController(text: Message.userAddress);
-    userIdController = TextEditingController();
-    userPwController = TextEditingController();
-    userNameController = TextEditingController();
-    userPhoneController = TextEditingController();
-    userEmailController = TextEditingController();
-    userAddressController = TextEditingController();
+    userIdController = TextEditingController(text: UserMessage.userId);
+    userPwController = TextEditingController(text: UserMessage.userPw);
+    userNameController = TextEditingController(text: UserMessage.userName);
+    userPhoneController = TextEditingController(text: UserMessage.userPhone);
+    userEmailController = TextEditingController(text: UserMessage.userEmail);
+    userAddressController =
+        TextEditingController(text: UserMessage.userAddress);
   }
 
   @override
@@ -50,13 +48,6 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('2Z 헤이딜러'),
-        automaticallyImplyLeading: false,
-        // 뒤로가기 버튼
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back)),
       ),
       body: Center(
         child: Column(
@@ -128,7 +119,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
                     userPhone = userPhoneController.text.trim();
                     userEmail = userEmailController.text.trim();
                     userAddress = userAddressController.text.trim();
-                    // updateUserInfo();
+                    updateUserInfo();
                     _showUpdateDialog(context);
                   },
                   child: const Text('수정'),
@@ -138,7 +129,8 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    //
+                    userId = userIdController.text.trim();
+                    deleteUserInfo();
                   },
                   child: const Text('탈퇴'),
                 ),
@@ -155,8 +147,9 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 유저 정보 수정
   updateUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://localhost:8080/Flutter/streetCat_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
+        'http://localhost:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
     await http.get(url);
+    // ignore: use_build_context_synchronously
     _showUpdateDialog(context);
   }
 
@@ -173,6 +166,37 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  // date: 2023.01.11
+  // desc: 탈퇴
+  deleteUserInfo() async {
+    var url = Uri.parse(// data transfer by get
+        'http://localhost:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
+    await http.get(url);
+    // ignore: use_build_context_synchronously
+    _showDeleteDialog(context);
+  }
+
+  // date: 2023.01.11
+  // desc: 탈퇴 완료 메세지
+  _showDeleteDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text('탈퇴되었습니다.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Get.to(() => const LoginScreen());
                 },
                 child: const Text('OK'),
               ),

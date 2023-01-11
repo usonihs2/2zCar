@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/user/user_message.dart';
+import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 import 'package:flutter_project/view/user/signup_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +24,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   late bool autoLogin;
   late bool seePassword;
 
+  // 로그인 버튼 클릭 시 DB 데이터와 비교하기 위한 변수 (간소화용)
+  late String userId;
+  late String userPassword;
+
+  // DB에서 user 정보 받아오는 변수
+  late List data;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,6 +41,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     autoLogin = false; //자동로그인 초기값
     _initSharedPreferences(); //SharedPreferences 초기화  저장하고 싶은 애들은 이위에
     seePassword = false; //비밀번호 보기 초기값
+    userId = '';
+    data = [];
   }
 
   @override
@@ -135,21 +149,16 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                     )
                   ],
                 ),
+                // 로그인 버튼
                 ElevatedButton(
                   onPressed: () {
-                    //DB에서 아이디와 비밀번호 넣을 곳!!!!!!!
                     if (idController.text.trim().isEmpty ||
                         passwordController.text.trim().isEmpty) {
                       errorSnackbar(context);
                     } else {
-                      if (idController.text.trim() == 'apple' &&
-                          passwordController.text.trim() == 'qwer1234') {
-                        //비밀번호 맞을때
-                        _showDialog(context);
-                      } else {
-                        //비밀번호 틀릴때
-                        checkSnackBar(context);
-                      }
+                      userId = idController.text.trim();
+                      userPassword = passwordController.text.trim();
+                      login(userId, userPassword);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -292,11 +301,82 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   errorSnackbar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('사용자아이디와 암호를 입력하세요'),
+        content: Text('사용자 아이디와 암호를 입력하세요'),
         duration: Duration(seconds: 2),
         backgroundColor: Colors.red,
       ),
     );
+  }
+
+  // 로그인 시 DB에 입력 값 존재 확인
+  login(String userId, String userPw) async {
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
+    var loginChk = await http.get(url);
+    var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
+    List result = dataConvertedJSON['results'];
+    if (result[0]['check'] == '0') {
+      // ignore: use_build_context_synchronously
+      _errorDialog(context);
+    } else {
+      // ignore: use_build_context_synchronously
+      loginDeleteChk(userId, userPw);
+    }
+  }
+
+  // 로그인 시 탈퇴 여부 확인
+  loginDeleteChk(String userId, String userPw) async {
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
+    var loginChk = await http.get(url);
+    var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
+    List result = dataConvertedJSON['results'];
+    print('loginDeleteChk${result[0]['check']}');
+    if (result[0]['check'] == null) {
+      // ignore: use_build_context_synchronously
+      _showDialog(context);
+    } else {
+      // ignore: use_build_context_synchronously
+      _errorDuplicateDialog(context);
+    }
+  }
+
+  // DB의 ID, PW와 다를 때
+  _errorDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text('아이디와 비밀번호를 확인해주세요.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  // DB의 ID, PW와 다를 때
+  _errorDuplicateDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text('탈퇴한 아이디입니다.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
   }
 
   //-----------------------------------------------
@@ -313,9 +393,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _saveSharedPreferences();
-                  Get.off(
-                    const UserTabbar(),
-                  )?.then((value) => autoLogin == true ? null : rebuildData());
+                  getJsonData();
+                  Get.off(const UserTabbar())?.then(
+                      (value) => autoLogin == true ? null : rebuildData());
                   //main 에서 뒤로가기하고 autoLogin이 true면 textfield채워져있고 아니면 비우기
                 },
                 child: const Text('OK'))
@@ -323,6 +403,28 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         );
       },
     );
+  }
+
+  // DB에서 user 정보를 받아와서 user_message.dart의 변수에 저장
+  Future<bool> getJsonData() async {
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
+
+    var response = await http.get(url);
+    //data.clear(); // clear data so that only inserted is added
+    var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
+    List result = dataConvertedJSON['results'];
+
+    setState(() {
+      data = result;
+    });
+    UserMessage.userId = data[0]['userId'];
+    UserMessage.userPw = data[0]['userPw'];
+    UserMessage.userName = data[0]['userName'];
+    UserMessage.userPhone = data[0]['userPhone'];
+    UserMessage.userEmail = data[0]['userEmail'];
+    UserMessage.userAddress = data[0]['userAddress'];
+    return true;
   }
 
   //얘는 textfield null 아니고 아이디 비밀번호 틀릴때

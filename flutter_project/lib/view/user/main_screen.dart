@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/forecast/forecast_tabbar.dart';
 import 'package:flutter_project/view/user/login_screen.dart';
+import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
@@ -29,7 +30,9 @@ class _MainScreenState extends State<MainScreen> {
 
     //timer설치
     _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-      changeImage();
+      if (mounted) {
+        changeImage();
+      }
     });
   }
 
