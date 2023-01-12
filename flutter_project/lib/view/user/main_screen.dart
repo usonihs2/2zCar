@@ -9,6 +9,8 @@ import 'package:flutter_project/view/forecast/forecast_tabbar.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'login_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
