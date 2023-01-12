@@ -62,15 +62,12 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             unselectedLabelColor: Colors.red,
             tabs: const <Widget>[
               Tab(
-                // icon: Icon(Icons.abc),
                 text: 'Brand',
               ),
               Tab(
-                // icon: Icon(CupertinoIcons.car_detailed),
                 text: 'Model',
               ),
               Tab(
-                // icon: Icon(Icons.abc),
                 text: 'Detail',
               ),
             ],
