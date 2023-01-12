@@ -158,7 +158,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
 
   getJSONData() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Rserve/rf_${Repository.modelPath}.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
+        'http://localhost:8080/Rserve/rf_${Repository.modelPath}.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
     var response = await http.get(url);
     setState(() {
       var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
