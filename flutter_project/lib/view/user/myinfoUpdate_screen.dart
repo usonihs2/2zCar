@@ -76,50 +76,50 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
                 style: TextStyle(fontSize: 30),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 40, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 20, 50, 10),
                 child: GestureDetector(
                   // on
                   child: TextField(
                     controller: userIdController,
-                    decoration: const InputDecoration(hintText: '아이디'),
+                    decoration: const InputDecoration(helperText: '아이디'),
                     readOnly: true,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                 child: TextField(
                   controller: userPwController,
-                  decoration: const InputDecoration(hintText: '비밀번호'),
+                  decoration: const InputDecoration(helperText: '비밀번호'),
                   obscureText: true,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                 child: TextField(
                   controller: userNameController,
-                  decoration: const InputDecoration(hintText: '이름'),
+                  decoration: const InputDecoration(helperText: '이름'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                 child: TextField(
                   controller: userPhoneController,
-                  decoration: const InputDecoration(hintText: '전화번호'),
+                  decoration: const InputDecoration(helperText: '전화번호'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                 child: TextField(
                   controller: userEmailController,
-                  decoration: const InputDecoration(hintText: '이메일'),
+                  decoration: const InputDecoration(helperText: '이메일'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                 child: TextField(
                   controller: userAddressController,
-                  decoration: const InputDecoration(hintText: '주소'),
+                  decoration: const InputDecoration(helperText: '주소'),
                 ),
               ),
               const SizedBox(
@@ -163,7 +163,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 유저 정보 수정
   updateUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://192.168.10.214:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
+        'http://localhost:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showUpdateDialog(context);
@@ -199,7 +199,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 탈퇴
   deleteUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://192.168.10.214:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
+        'http://localhost:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showDeleteDialog(context);
