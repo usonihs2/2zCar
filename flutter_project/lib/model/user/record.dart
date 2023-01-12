@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Record {
   //firebase
   final String brand;
-  final Timestamp date;
+  final String date;
   final String drive;
   final String fuel;
   final String model;
