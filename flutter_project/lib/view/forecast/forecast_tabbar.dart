@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project/model/user/user_message.dart';
 import 'package:flutter_project/view/forecast/result_screen.dart';
 
 import '../../model/forecast/forecast_message.dart';
@@ -133,6 +135,8 @@ class _ForecastTabbarState extends State<ForecastTabbar>
                       () {
                         getJSONData();
                         ForecastResult.forecastResult = result;
+                        priceRangeSet();
+                        addAction();
                       },
                     );
                     Navigator.of(context).pop();
@@ -177,6 +181,165 @@ class _ForecastTabbarState extends State<ForecastTabbar>
       );
     } else {
       _showDialog(context, result);
+    }
+  }
+
+  addAction() {
+    FirebaseFirestore.instance.collection('forecast').add(
+      {
+        'userId': UserMessage.userId,
+        'brand': Repository.brandName,
+        'model': Repository.modelName,
+        'year': ForecastResult.year,
+        'odometer': ForecastResult.odometer,
+        'fuel': ForecastResult.fuelName,
+        'transmission': ForecastResult.transmissionName,
+        'drive': ForecastResult.driveName,
+        'priceRange': ForecastResult.priceRange,
+        'date': DateTime.now(),
+      },
+    );
+  }
+
+  priceRangeSet() {
+    if (Repository.modelName == 'F-150') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '8,000\$ ~ 17,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '11,000\$ ~ 23,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '35,000\$ ~ 46,000\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '27,000\$ ~ 38,000\$';
+      } else {
+        ForecastResult.priceRange = '18,000\$ ~ 30,000\$';
+      }
+    } else if (Repository.modelName == 'Escape') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '13,000\$ ~ 17,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '17,500\$ ~ 22,500\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '4,000\$ ~ 6,500\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '9,000\$ ~ 13,000\$';
+      } else {
+        ForecastResult.priceRange = '6,000\$ ~ 9500\$';
+      }
+    } else if (Repository.modelName == 'Explorer') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '28,000\$ ~ 38,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '12,000\$ ~ 19,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '18,500\$ ~ 26,500\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '3,500\$ ~ 8,500\$';
+      } else {
+        ForecastResult.priceRange = '6,000\$ ~ 13,000\$';
+      }
+    } else if (Repository.modelName == '328i') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '4,800\$ ~ 7,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '10,000\$ ~ 16,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '6,000\$ ~ 9,000\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '12,000\$ ~ 18,000\$';
+      } else {
+        ForecastResult.priceRange = '8,400\$ ~ 12,000\$';
+      }
+    } else if (Repository.modelName == 'X3') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '6,500\$ ~ 11,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '26,000\$ ~ 35,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '15,000\$ ~ 23,000\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '4,700\$ ~ 7,000\$';
+      } else {
+        ForecastResult.priceRange = '9,000\$ ~ 14,000\$';
+      }
+    } else if (Repository.modelName == 'X5') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '6,300\$ ~ 11,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '14,000\$ ~ 25,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '4,000\$ ~ 8,000\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '28,000\$ ~ 37,000\$';
+      } else {
+        ForecastResult.priceRange = '9,000\$ ~ 16,000\$';
+      }
+    } else if (Repository.modelName == 'C-Class') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '9,000\$ ~ 14,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '24,000\$ ~ 33,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '0\$ ~ 9,000\$';
+      } else {
+        ForecastResult.priceRange = '14,000\$ ~ 24,000\$';
+      }
+    } else if (Repository.modelName == 'E-Class') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '0\$ ~ 8,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '8,000\$ ~ 12,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '12,000\$ ~ 20,000\$';
+      } else {
+        ForecastResult.priceRange = '20,000\$ ~ 34,000\$';
+      }
+    } else if (Repository.modelName == 'S-Class') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '14,500\$ ~ 34,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '0\$ ~ 8,500\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '8,500\$ ~ 14,500\$';
+      } else {
+        ForecastResult.priceRange = '34,000\$ ~ 57,000\$';
+      }
+    } else if (Repository.modelName == 'Soul') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '5,000\$ ~ 7,500\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '15,000\$ ~ 20,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '7,000\$ ~ 9,500\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '11,500\$ ~ 15,000\$';
+      } else {
+        ForecastResult.priceRange = '8,500\$ ~ 12,000\$';
+      }
+    } else if (Repository.modelName == 'Optima') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '4,000\$ ~ 8,000\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '11,000\$ ~ 15,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '9,000\$ ~ 13,000\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '16,000\$ ~ 20,000\$';
+      } else {
+        ForecastResult.priceRange = '7,500\$ ~ 10,000\$';
+      }
+    } else if (Repository.modelName == 'Forte') {
+      if (ForecastResult.forecastResult == '1') {
+        ForecastResult.priceRange = '6,000\$ ~ 7,500\$';
+      } else if (ForecastResult.forecastResult == '2') {
+        ForecastResult.priceRange = '7,500\$ ~ 11,000\$';
+      } else if (ForecastResult.forecastResult == '3') {
+        ForecastResult.priceRange = '15,000\$ ~ 18,500\$';
+      } else if (ForecastResult.forecastResult == '4') {
+        ForecastResult.priceRange = '9,500\$ ~ 14,000\$';
+      } else {
+        ForecastResult.priceRange = '3,500\$ ~ 6,000\$';
+      }
     }
   }
 } // End
