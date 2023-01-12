@@ -51,14 +51,16 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             unselectedLabelColor: Colors.red,
             tabs: const <Widget>[
               Tab(
-                icon: Icon(Icons.abc),
+                // icon: Icon(Icons.abc),
+                text: 'Brand',
               ),
               Tab(
-                icon: Icon(Icons.abc),
-                // text: ,
+                // icon: Icon(CupertinoIcons.car_detailed),
+                text: 'Model',
               ),
               Tab(
-                icon: Icon(Icons.abc),
+                // icon: Icon(Icons.abc),
+                text: 'Detail',
               ),
             ],
           ),
@@ -109,7 +111,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
         return AlertDialog(
           title: const Text('입력 내용'),
           content: Text(
-            '제조사 : 블라블라\n모델명 : 블라블라\n연식 : ${ForecastResult.year}\n주행거리 : ${ForecastResult.odometer}\n실린더 : ${ForecastResult.cylindersName}\n연료 : ${ForecastResult.fuelName}\n구동방식 : ${ForecastResult.driveName}\n차량 사이즈 : ${ForecastResult.sizeName}',
+            '제조사 : 블라블라\n모델명 : 블라블라\n연식 : ${ForecastResult.year}\n주행거리 : ${ForecastResult.odometer}\n연료 : ${ForecastResult.fuelName}\n변속기 : ${ForecastResult.transmissionName}\n구동방식 : ${ForecastResult.driveName}',
           ),
           actions: [
             Row(
@@ -150,8 +152,10 @@ class _ForecastTabbarState extends State<ForecastTabbar>
   }
 
   getJSONData() async {
+    // var url = Uri.parse(
+    //     'http://localhost:8080/Rserve/rf_${Repository.modelPath}.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
     var url = Uri.parse(
-        'http://localhost:8080/Rserve/rf_f150.jsp?year=${ForecastResult.year}&cylinders=${ForecastResult.cylinders}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}&size=${ForecastResult.size}');
+        'http://localhost:8080/Rserve/rf_f150.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
     var response = await http.get(url);
     setState(() {
       var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
@@ -161,11 +165,10 @@ class _ForecastTabbarState extends State<ForecastTabbar>
 
   forecastAction() {
     if (ForecastResult.year == 'select year' ||
-        ForecastResult.cylinders == '' ||
+        ForecastResult.transmission == '' ||
         ForecastResult.fuel == '' ||
         ForecastResult.odometer.isEmpty ||
-        ForecastResult.drive == '' ||
-        ForecastResult.size == '') {
+        ForecastResult.drive == '') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.red,
