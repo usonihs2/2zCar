@@ -360,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         });
   }
 
-  // DB의 ID, PW와 다를 때
+  // 로그인 시 탈퇴한 ID 일때
   _errorDuplicateDialog(BuildContext context) {
     showDialog(
         context: context,
@@ -446,4 +446,3 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     });
   }
 } //end
-
