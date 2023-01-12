@@ -437,13 +437,5 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       ),
     );
   }
-
-//뒤로 가면 초기화
-  rebuildData() {
-    setState(() {
-      idController.text = '';
-      passwordController.text = '';
-    });
-  }
 } //end
 
