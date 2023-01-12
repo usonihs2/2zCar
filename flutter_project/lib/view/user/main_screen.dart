@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     data = [];
     imagesFile = [
@@ -45,21 +46,21 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       appBar: AppBar(
         title: const Text('Home'),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       _timer.cancel();
-        //       value == false ? _disposeSaharedPreferences() : null;
-        //       // _disposeSaharedPreferences();
-        //       Get.offAll(
-        //         const LoginScreen(),
-        //       );
-        //     },
-        //     icon: const Icon(
-        //       Icons.logout_sharp,
-        //     ),
-        //   ),
-        // ],
+        actions: [
+          IconButton(
+            onPressed: () {
+              _timer.cancel();
+              value == false ? _disposeSaharedPreferences() : null;
+              // _disposeSaharedPreferences();
+              Get.offAll(
+                const LoginScreen(),
+              );
+            },
+            icon: const Icon(
+              Icons.logout_sharp,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -97,7 +98,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 child: ElevatedButton(
                   onPressed: () {
                     _timer.cancel();
-                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
