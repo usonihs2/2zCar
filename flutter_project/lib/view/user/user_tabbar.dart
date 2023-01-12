@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
+import 'package:flutter_project/view/user/myforecastHistory_screen.dart';
 import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 
 class UserTabbar extends StatefulWidget {
@@ -39,7 +40,7 @@ class _UserTabbarState extends State<UserTabbar>
           //내가만든 컨트롤러
           children: const [
             MainScreen(),
-            MainScreen(),
+            MyforecastHistoryScreen(),
             MyinfoUpdateScreen(),
           ],
         ),

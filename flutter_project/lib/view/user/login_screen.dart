@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/user/user_message.dart';
-import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 import 'package:flutter_project/view/user/signup_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
