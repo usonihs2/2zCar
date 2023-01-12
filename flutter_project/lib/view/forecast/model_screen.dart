@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/forecast/repository.dart';
-import 'package:flutter_project/view/forecast/detail_screen.dart';
 
 class ModelScreen extends StatefulWidget {
   const ModelScreen({super.key});
@@ -180,12 +177,10 @@ class _ModelScreen extends State<ModelScreen> {
                         },
                         child: Opacity(
                           opacity: opacityLevel1,
-                          child: Container(
-                            child: Image.asset(
-                              modelImage[0],
-                              width: 100,
-                              height: 100,
-                            ),
+                          child: Image.asset(
+                            modelImage[0],
+                            width: 100,
+                            height: 100,
                           ),
                         ),
                       ),
@@ -210,14 +205,12 @@ class _ModelScreen extends State<ModelScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Container(
-                          child: Opacity(
-                            opacity: opacityLevel2,
-                            child: Image.asset(
-                              modelImage[1],
-                              width: 100,
-                              height: 100,
-                            ),
+                        Opacity(
+                          opacity: opacityLevel2,
+                          child: Image.asset(
+                            modelImage[1],
+                            width: 100,
+                            height: 100,
                           ),
                         ),
                         Text(modelName[1]),
@@ -242,14 +235,12 @@ class _ModelScreen extends State<ModelScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Container(
-                          child: Opacity(
-                            opacity: opacityLevel3,
-                            child: Image.asset(
-                              modelImage[2],
-                              width: 100,
-                              height: 100,
-                            ),
+                        Opacity(
+                          opacity: opacityLevel3,
+                          child: Image.asset(
+                            modelImage[2],
+                            width: 100,
+                            height: 100,
                           ),
                         ),
                         Text(modelName[2]),
