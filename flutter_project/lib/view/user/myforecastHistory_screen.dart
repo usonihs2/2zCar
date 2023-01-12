@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/view/user/login_screen.dart';
-import 'package:get/get.dart';
+import 'package:flutter_project/model/user/message.dart';
+import 'package:flutter_project/model/user/record.dart';
+import 'package:flutter_project/model/user/user_message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyforecastHistoryScreen extends StatefulWidget {
@@ -12,84 +14,121 @@ class MyforecastHistoryScreen extends StatefulWidget {
 }
 
 class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
-  late List data;
-  var value = Get.arguments ?? '_';
-
-  @override
-  void initState() {
-    super.initState();
-    data = [];
-    // getJsonData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('가격 예측 기록'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // _disposeSaharedPreferences();
-              value == false ? _disposeSaharedPreferences() : null;
-              Get.offAll(
-                const LoginScreen(),
-              );
-            },
-            icon: const Icon(
-              Icons.logout_sharp,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       // _disposeSaharedPreferences();
+        //       value == false ? _disposeSaharedPreferences() : null;
+        //       Get.offAll(
+        //         const LoginScreen(),
+        //       );
+        //     },
+        //     icon: const Icon(
+        //       Icons.logout_sharp,
+        //     ),
+        //   ),
+        // ],
       ),
       body: Center(
-        child: data.isEmpty
-            ? const Text('데이터가 없습니다.')
-            : ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                                fit: BoxFit.fill,
-                                'images/${data[index]['postImage']}.jpeg'),
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 270,
-                              child: Text(
-                                overflow: TextOverflow.ellipsis,
-                                '   ${data[index]['userId']}  ${data[index]['postCreateDate']}\n',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 270,
-                              child: Text(
-                                overflow: TextOverflow.ellipsis,
-                                '  ${data[index]['postName']}',
-                                style: const TextStyle(fontSize: 20),
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('forecast') // collection > table이름
+              .where('userId', isEqualTo: UserMessage.userId)
+              // .orderBy('date', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final documents = snapshot.data!.docs; // docs : 내용물
+            return ListView(
+              children: documents.map((e) => _buildItemWidget(e)).toList(),
+            );
+          },
+        ),
       ),
+    );
+  }
+
+  // --- function ---
+  Widget _buildItemWidget(DocumentSnapshot doc) {
+    final record = Record(
+      brand: doc["brand"],
+      date: doc["date"],
+      drive: doc["drive"],
+      fuel: doc["fuel"],
+      model: doc["model"],
+      odometer: doc["odometer"],
+      priceRange: doc["priceRange"],
+      transmission: doc["transmission"],
+      userId: doc["userId"],
+      year: doc["year"],
+    );
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete_forever),
+      ),
+      key: ValueKey(doc),
+      onDismissed: (direction) {
+        FirebaseFirestore.instance.collection('forecast').doc(doc.id).delete();
+      },
+      child: Container(
+        color: Colors.white,
+        child: GestureDetector(
+          onTap: () {
+            Message.id = doc.id;
+            Message.brand = doc["brand"];
+            Message.date = doc["date"];
+            Message.drive = doc["drive"];
+            Message.fuel = doc["fuel"];
+            Message.model = doc["model"];
+            Message.odometer = doc["odometer"];
+            Message.priceRange = doc["priceRange"];
+            Message.transmission = doc["transmission"];
+            Message.userId = doc["userId"];
+            Message.year = doc["year"];
+          },
+          child: Card(
+            color: Colors.white70,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    // ignore: unnecessary_string_interpolations
+                    '${record.brand}',
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text(
+                          '제목 : ${record.model}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      // ),
     );
   }
 

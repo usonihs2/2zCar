@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_project/model/user/user_message.dart';
 import 'package:flutter_project/view/forecast/result_screen.dart';
-import 'package:flutter_project/view/user/main_screen.dart';
 
 import '../../model/forecast/forecast_message.dart';
 import '../../model/forecast/repository.dart';
+import '../user/user_tabbar.dart';
 import 'brand_screen.dart';
 import 'detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +128,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const MainScreen();
+                          return const UserTabbar();
                         },
                       ),
                     );
@@ -290,7 +289,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
         'transmission': ForecastResult.transmissionName,
         'drive': ForecastResult.driveName,
         'priceRange': ForecastResult.priceRange,
-        'date': DateTime.now(),
+        'date': DateTime.now().toString().substring(0, 19),
       },
     );
   }

@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/forecast/forecast_message.dart';
 import 'package:flutter_project/model/forecast/repository.dart';
 import 'package:flutter_project/view/forecast/forecast_tabbar.dart';
-import 'package:flutter_project/view/user/main_screen.dart';
 
 import '../../model/forecast/reset_static.dart';
+import '../user/user_tabbar.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
@@ -121,7 +119,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const MainScreen();
+                            return const UserTabbar();
                           },
                         ),
                       );

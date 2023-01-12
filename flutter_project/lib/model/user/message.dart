@@ -4,7 +4,7 @@ class Message {
   //firebase
   static String id = '';
   static String brand = '';
-  static Timestamp date = date;
+  static String date = '';
   static String drive = '';
   static String fuel = '';
   static String model = '';
