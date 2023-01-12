@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/view/forecast/forecast_tabbar.dart';
 import 'package:flutter_project/view/user/login_screen.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,10 +13,12 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   late List imagesFile; //광고 이미지 파일 배열
   late int currentPage; //현재 페이지 순서
   late Timer _timer;
+  var value = Get.arguments ?? '_';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -45,12 +48,13 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(
             onPressed: () {
               _timer.cancel();
-              Get.off(
+              value == false ? _disposeSaharedPreferences() : null;
+              Get.offAll(
                 const LoginScreen(),
               );
             },
             icon: const Icon(
-              Icons.logout,
+              Icons.logout_sharp,
             ),
           ),
         ],
@@ -77,13 +81,6 @@ class _MainScreenState extends State<MainScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Column(
                   children: [
-                    // Text(
-                    //   imagesFile[currentPage],
-                    //   style: const TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 20,
-                    //   ),
-                    // ),
                     Image.asset(
                       'images/${imagesFile[currentPage]}',
                       width: 500,
@@ -143,5 +140,11 @@ class _MainScreenState extends State<MainScreen> {
         currentPage = 0;
       }
     });
+  }
+
+  _disposeSaharedPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+
+    pref.clear(); //지워버리기>>이거 didChangeAppLifecycleState부분 자동로그인에 응용 안하면 SaharedPreferences내용 남아있으니까
   }
 }//end

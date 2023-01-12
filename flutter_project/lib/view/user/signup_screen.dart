@@ -73,19 +73,21 @@ class _RegExpState extends State<SignupScreen> {
       appBar: AppBar(
         title: const Text('회원 가입'),
       ),
-      body: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            _showIdInput(),
-            _showPasswordInput(),
-            _showPasswordChkInput(),
-            _showNameInput(),
-            _showPhoneNoInput(),
-            _showAddressInput(),
-            _showEmailInput(),
-            _showOkBtn(),
-          ],
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              _showIdInput(),
+              _showPasswordInput(),
+              _showPasswordChkInput(),
+              _showNameInput(),
+              _showPhoneNoInput(),
+              _showAddressInput(),
+              _showEmailInput(),
+              _showOkBtn(),
+            ],
+          ),
         ),
       ),
     );
@@ -395,7 +397,7 @@ class _RegExpState extends State<SignupScreen> {
   // desc: MySQL usedcar 스키마 user 테이블에 가입 정보 입력
   insertJSONData() async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/usedcar_user_insert_flutter.jsp?userId=$userId&userPw=$userPw&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_insert_flutter.jsp?userId=$userId&userPw=$userPw&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showRegisterSuccessDialog(context);
@@ -432,7 +434,7 @@ class _RegExpState extends State<SignupScreen> {
   // desc: ID 중복 검사
   idDuplicateChk(String userId) async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/usedcar_idChk_flutter.jsp?userId=$userId');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_idChk_flutter.jsp?userId=$userId');
     var idDuplicateChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(idDuplicateChk.bodyBytes));
     List result = dataConvertedJSON['results'];

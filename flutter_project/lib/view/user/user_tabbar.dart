@@ -36,6 +36,7 @@ class _UserTabbarState extends State<UserTabbar>
       length: 3,
       child: Scaffold(
         body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: controller,
           //내가만든 컨트롤러
           children: const [
@@ -44,32 +45,27 @@ class _UserTabbarState extends State<UserTabbar>
             MyinfoUpdateScreen(),
           ],
         ),
-        bottomNavigationBar: Container(
-          //얘는 자동 로우 로우 붙일 필요 없다.
-          color: Colors.yellowAccent,
-          height: 100,
-          child: TabBar(
-            controller: controller,
-            labelColor: Colors.blue,
-            indicatorColor: Colors.red,
+        bottomNavigationBar: TabBar(
+          controller: controller,
+          labelColor: Colors.black,
+          indicatorColor: Colors.black,
 
-            //현재페이지 표시라인
-            //컨트롤러에 신호 랭쓰기억
-            tabs: const [
-              Tab(
-                icon: Icon(Icons.home),
-                text: "홈",
-              ),
-              Tab(
-                icon: Icon(Icons.text_snippet),
-                text: '가격 예측 기록',
-              ),
-              Tab(
-                icon: Icon(Icons.people),
-                text: '마이페이지',
-              ),
-            ],
-          ),
+          //현재페이지 표시라인
+          //컨트롤러에 신호 랭쓰기억
+          tabs: const [
+            Tab(
+              icon: Icon(Icons.home),
+              text: "홈",
+            ),
+            Tab(
+              icon: Icon(Icons.text_snippet),
+              text: '가격 예측 기록',
+            ),
+            Tab(
+              icon: Icon(Icons.people),
+              text: '마이페이지',
+            ),
+          ],
         ),
       ),
     );
