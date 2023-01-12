@@ -15,6 +15,7 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
   void initState() {
     super.initState();
     data = [];
+    // getJsonData();
   }
 
   @override
