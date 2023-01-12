@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/forecast/repository.dart';
+import 'package:flutter_project/view/forecast/detail_screen.dart';
 
 class ModelScreen extends StatefulWidget {
   const ModelScreen({super.key});
@@ -139,119 +142,144 @@ class _ModelScreen extends State<ModelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              Repository.brandImage, //브랜드 선택페이지에서 저장한 브랜드 이미지
-              width: 200,
-              height: 200,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+      body: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset(
+                  Repository.brandImage,
+                  width: 60,
+                  height: 60,
+                  //
+                ),
+              ),
+              const SizedBox(
+                height: 70,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      Repository.modelImage,
+                      width: 350,
+                      height: 250,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Repository.modelName =
+                                    modelName[0]; //Repository에 모델명 저장
+                                Repository.modelImage =
+                                    modelImage[0]; //Repository에 모델이미지 저장
+                                Repository.brandName =
+                                    brandName; //Repository에 브랜드명 저장
+                                Repository.modelPath =
+                                    modelPath[0]; //Repository에 브랜드명 저장
+                                setState(() {
+                                  opacityLevel1 = 1;
+                                  opacityLevel2 = 0.3;
+                                  opacityLevel3 = 0.3;
+                                });
+                              },
+                              child: Opacity(
+                                opacity: opacityLevel1,
+                                child: Container(
+                                  child: Image.asset(
+                                    modelImage[0],
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(modelName[0]),
+                          ],
+                        ),
+                      ),
                       InkWell(
                         onTap: () {
-                          Repository.modelName =
-                              modelName[0]; //Repository에 모델명 저장
-                          Repository.modelImage =
-                              modelImage[0]; //Repository에 모델이미지 저장
-                          Repository.brandName =
-                              brandName; //Repository에 브랜드명 저장
-                          Repository.modelPath =
-                              modelPath[0]; //Repository에 브랜드명 저장
+                          Repository.modelName = modelName[1];
+                          Repository.modelImage = modelImage[1];
+                          Repository.brandName = brandName;
+                          Repository.modelPath = modelPath[1];
                           setState(() {
-                            // opacityLevel1 = opacityLevel1 == 0.3 ? 1.0 : 0.3;
-                            opacityLevel1 = 1;
-                            opacityLevel2 = 0.3;
+                            opacityLevel1 = 0.3;
+                            opacityLevel2 = 1;
                             opacityLevel3 = 0.3;
                           });
                         },
-                        child: Opacity(
-                          opacity: opacityLevel1,
-                          child: Image.asset(
-                            modelImage[0],
-                            width: 100,
-                            height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Opacity(
+                                  opacity: opacityLevel2,
+                                  child: Image.asset(
+                                    modelImage[1],
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                ),
+                              ),
+                              Text(modelName[1]),
+                            ],
                           ),
                         ),
                       ),
-                      Text(modelName[0]),
+                      InkWell(
+                        onTap: () {
+                          Repository.modelName = modelName[2];
+                          Repository.modelImage = modelImage[2];
+                          Repository.brandName = brandName;
+                          Repository.modelPath = modelPath[2];
+                          setState(() {
+                            opacityLevel1 = 0.3;
+                            opacityLevel2 = 0.3;
+                            opacityLevel3 = 1;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Opacity(
+                                  opacity: opacityLevel3,
+                                  child: Image.asset(
+                                    modelImage[2],
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                ),
+                              ),
+                              Text(modelName[2]),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Repository.modelName = modelName[1];
-                    Repository.modelImage = modelImage[1];
-                    Repository.brandName = brandName;
-                    Repository.modelPath = modelPath[1];
-                    setState(() {
-                      // opacityLevel2 = opacityLevel2 == 0.3 ? 1.0 : 0.3;
-                      opacityLevel1 = 0.3;
-                      opacityLevel2 = 1;
-                      opacityLevel3 = 0.3;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Opacity(
-                          opacity: opacityLevel2,
-                          child: Image.asset(
-                            modelImage[1],
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                        Text(modelName[1]),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Repository.modelName = modelName[2];
-                    Repository.modelImage = modelImage[2];
-                    Repository.brandName = brandName;
-                    Repository.modelPath = modelPath[2];
-                    setState(() {
-                      // opacityLevel3 = opacityLevel3 == 0.3 ? 1.0 : 0.3;
-                      opacityLevel1 = 0.3;
-                      opacityLevel2 = 0.3;
-                      opacityLevel3 = 1;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Opacity(
-                          opacity: opacityLevel3,
-                          child: Image.asset(
-                            modelImage[2],
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                        Text(modelName[2]),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 50,
+          )
+        ],
       ),
     );
   } //
