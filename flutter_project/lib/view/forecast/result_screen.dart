@@ -16,7 +16,7 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   void initState() {
     super.initState();
-    if (Repository.modelname == 'F-150') {
+    if (Repository.modelName == 'F-150') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '8,000\$ ~ 17,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -28,7 +28,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '18,000\$ ~ 30,000\$';
       }
-    } else if (Repository.modelname == 'Escape') {
+    } else if (Repository.modelName == 'Escape') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '13,000\$ ~ 17,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -40,7 +40,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '6,000\$ ~ 9500\$';
       }
-    } else if (Repository.modelname == 'Explorer') {
+    } else if (Repository.modelName == 'Explorer') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '28,000\$ ~ 38,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -52,7 +52,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '6,000\$ ~ 13,000\$';
       }
-    } else if (Repository.modelname == '328i') {
+    } else if (Repository.modelName == '328i') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '4,800\$ ~ 7,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -64,7 +64,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8,400\$ ~ 12,000\$';
       }
-    } else if (Repository.modelname == 'X3') {
+    } else if (Repository.modelName == 'X3') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6,500\$ ~ 11,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -76,7 +76,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '9,000\$ ~ 14,000\$';
       }
-    } else if (Repository.modelname == 'X5') {
+    } else if (Repository.modelName == 'X5') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6,300\$ ~ 11,000\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -88,7 +88,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '9,000\$ ~ 16,000\$';
       }
-    } else if (Repository.modelname == 'C-Class') {
+    } else if (Repository.modelName == 'C-Class') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -100,7 +100,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8845\$ ~ 15996\$';
       }
-    } else if (Repository.modelname == 'E-Class') {
+    } else if (Repository.modelName == 'E-Class') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -112,7 +112,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8845\$ ~ 15996\$';
       }
-    } else if (Repository.modelname == 'S-Class') {
+    } else if (Repository.modelName == 'S-Class') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -124,7 +124,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8845\$ ~ 15996\$';
       }
-    } else if (Repository.modelname == 'Soul') {
+    } else if (Repository.modelName == 'Soul') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -136,7 +136,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8845\$ ~ 15996\$';
       }
-    } else if (Repository.modelname == 'Optima') {
+    } else if (Repository.modelName == 'Optima') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -148,7 +148,7 @@ class _ResultScreenState extends State<ResultScreen> {
       } else {
         ForecastResult.priceRange = '8845\$ ~ 15996\$';
       }
-    } else if (Repository.modelname == 'Forte') {
+    } else if (Repository.modelName == 'Forte') {
       if (ForecastResult.forecastResult == '1') {
         ForecastResult.priceRange = '6296\$ ~ 10961\$';
       } else if (ForecastResult.forecastResult == '2') {
@@ -200,7 +200,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Text('제조사 : ${Repository.brandName}'),
-                    Text('차량명 : ${Repository.modelname}'),
+                    Text('차량명 : ${Repository.modelName}'),
                     Text('연식 : ${ForecastResult.year}'),
                     Text('주행거리 : ${ForecastResult.odometer}'),
                     Text('연료 : ${ForecastResult.fuelName}'),
