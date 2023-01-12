@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_project/model/user/user_message.dart';
 import 'package:flutter_project/view/forecast/result_screen.dart';
-import 'package:flutter_project/view/user/main_screen.dart';
 
 import '../../model/forecast/forecast_message.dart';
 import '../../model/forecast/repository.dart';
@@ -24,17 +22,11 @@ class _ForecastTabbarState extends State<ForecastTabbar>
     with SingleTickerProviderStateMixin {
   String result = 'all';
   late TabController tabController;
-  //
-  late String test1;
-  late String test2;
-  //
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-    test1 = 'aa';
-    test2 = 'bb';
   }
 
   @override
@@ -85,115 +77,30 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             DetailScreen(),
           ],
         ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: SizedBox(
-                width: 100,
-                child: FloatingActionButton(
-                  heroTag: 'prev',
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {
-                    setState(
-                      () {
-                        if (tabController.index > 0) {
-                          tabController.index = tabController.index - 1;
-                        }
-                      },
-                    );
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 105, 50),
+          child: SizedBox(
+            width: 150,
+            child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              splashColor: Colors.purpleAccent,
+              backgroundColor: Colors.amber,
+              onPressed: () {
+                setState(
+                  () {
+                    if (tabController.index < 2) {
+                      tabController.index = tabController.index + 1;
+                    } else {
+                      forecastAction();
+                    }
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.arrow_back),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text('prev'),
-                    ],
-                  ),
-                ),
-              ),
+                );
+              },
+              child:
+                  tabController.index < 2 ? const Text('다음') : const Text('예측'),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 100,
-                child: FloatingActionButton(
-                  heroTag: 'home',
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const MainScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.home),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text('Home'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 110,
-              child: FloatingActionButton(
-                heroTag: 'next_submit',
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                splashColor: Colors.purpleAccent,
-                backgroundColor: Colors.amber,
-                onPressed: () {
-                  setState(
-                    () {
-                      if (tabController.index < 2) {
-                        tabController.index = tabController.index + 1;
-                      } else {
-                        forecastAction();
-                      }
-                    },
-                  );
-                },
-                child: tabController.index < 2
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.forward),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text('Next'),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.insights),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text('Submit'),
-                        ],
-                      ),
-              ),
-            ),
-            //
-          ],
+          ),
         ),
       ),
     );
@@ -233,15 +140,11 @@ class _ForecastTabbarState extends State<ForecastTabbar>
                       },
                     );
                     Navigator.of(context).pop();
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const ResultScreen();
-                        },
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const ResultScreen();
+                      },
+                    ));
                   },
                   child: const Text('예측'),
                 ),
