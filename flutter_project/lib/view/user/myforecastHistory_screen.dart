@@ -93,27 +93,6 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
     );
   }
 
-  // --- Functions
-  // date: 2022.12.28
-  // desc: select data for street cats!
-  // Future<bool> getJsonData() async {
-  //   var url = Uri.parse(
-  //       'http://localhost:8080/Flutter/streetCat_post_query_flutter.jsp');
-
-  //   var response = await http.get(url);
-  //   // print(response.body);
-  //   //data.clear(); // clear data so that only inserted is added
-  //   // data from db is JSON and is converted
-  //   var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
-  //   // converted data is put into result
-  //   List result = dataConvertedJSON['results'];
-
-  //   setState(() {
-  //     data = result;
-  //   });
-  //   return true;
-  // }
-
   _disposeSaharedPreferences() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
