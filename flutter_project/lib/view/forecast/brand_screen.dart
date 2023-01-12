@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_project/model/forecast/repository.dart';
-import 'package:flutter_project/view/forecast/model_screen.dart';
 
 class BrandScreen extends StatefulWidget {
   const BrandScreen({super.key});
@@ -21,7 +19,6 @@ class _BrandScreen extends State<BrandScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ford = true;
     benz = false;

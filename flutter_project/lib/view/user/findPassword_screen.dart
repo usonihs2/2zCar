@@ -23,7 +23,6 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userIdController = TextEditingController();
     userNameController = TextEditingController();
@@ -107,7 +106,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
   //아이디 삭제 확인
   getJsonData1() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/find_password_count.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_password_count.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -121,6 +120,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
     if (i == 1) {
       getJsonData();
     } else {
+      // ignore: use_build_context_synchronously
       _errorDialog(context);
     }
   }
@@ -128,7 +128,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
   //비밀번호 찾기
   getJsonData() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/find_password_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_password_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -139,6 +139,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
       data.addAll(result);
     });
     pass = data[0]['findPass'];
+    // ignore: use_build_context_synchronously
     _showDialog(context);
   }
 
