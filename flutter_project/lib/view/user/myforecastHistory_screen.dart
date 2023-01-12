@@ -14,6 +14,16 @@ class MyforecastHistoryScreen extends StatefulWidget {
 }
 
 class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
+  late int num;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    num = 0;
+    // Message.num = num;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +49,7 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
           stream: FirebaseFirestore.instance
               .collection('forecast') // collection > table이름
               .where('userId', isEqualTo: UserMessage.userId)
-              // .orderBy('date', descending: true)
+              .orderBy('date', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -48,6 +58,8 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
               );
             }
             final documents = snapshot.data!.docs; // docs : 내용물
+            // num = snapshot.data!.docs.length;
+
             return ListView(
               children: documents.map((e) => _buildItemWidget(e)).toList(),
             );
@@ -107,6 +119,8 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
                   child: Text(
                     // ignore: unnecessary_string_interpolations
                     '${record.brand}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ),
                 Expanded(
@@ -116,8 +130,8 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
                       Padding(
                         padding: const EdgeInsets.all(3.0),
                         child: Text(
-                          '제목 : ${record.model}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          '사용자ID: ${record.userId} \n날짜: ${record.date} \n구동방식: ${record.drive} \n연료: ${record.fuel} \n모델: ${record.model} \n주행기록: ${record.odometer} \n가격: ${record.priceRange} \n변속기: ${record.transmission}  \n연식: ${record.year}',
+                          // style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
