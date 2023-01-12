@@ -1,6 +1,7 @@
 import 'package:flutter_project/view/forecast/result_screen.dart';
 
 import '../../model/forecast/forecast_message.dart';
+import '../../model/forecast/repository.dart';
 import 'brand_screen.dart';
 import 'detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
         return AlertDialog(
           title: const Text('입력 내용'),
           content: Text(
-            '제조사 : 블라블라\n모델명 : 블라블라\n연식 : ${ForecastResult.year}\n주행거리 : ${ForecastResult.odometer}\n연료 : ${ForecastResult.fuelName}\n변속기 : ${ForecastResult.transmissionName}\n구동방식 : ${ForecastResult.driveName}',
+            '제조사 : ${Repository.brandName}\n모델명 : ${Repository.modelName}\n연식 : ${ForecastResult.year}\n주행거리 : ${ForecastResult.odometer}\n연료 : ${ForecastResult.fuelName}\n변속기 : ${ForecastResult.transmissionName}\n구동방식 : ${ForecastResult.driveName}',
           ),
           actions: [
             Row(
@@ -152,10 +153,8 @@ class _ForecastTabbarState extends State<ForecastTabbar>
   }
 
   getJSONData() async {
-    // var url = Uri.parse(
-    //     'http://localhost:8080/Rserve/rf_${Repository.modelPath}.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
     var url = Uri.parse(
-        'http://localhost:8080/Rserve/rf_f150.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
+        'http://localhost:8080/Rserve/rf_${Repository.modelPath}.jsp?year=${ForecastResult.year}&transmission=${ForecastResult.transmission}&fuel=${ForecastResult.fuel}&odometer=${ForecastResult.odometer}&drive=${ForecastResult.drive}');
     var response = await http.get(url);
     setState(() {
       var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
