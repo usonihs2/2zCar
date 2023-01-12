@@ -18,11 +18,13 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   late int currentPage; //현재 페이지 순서
   late Timer _timer;
   var value = Get.arguments ?? '_';
+  late List data;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    data = [];
     imagesFile = [
       '광고1.png',
       '광고2.jpg',
@@ -123,6 +125,58 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                       ),
                     ),
                   ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  data.isEmpty
+                      ? const Text('데이터가 없습니다.')
+                      : ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                          fit: BoxFit.fill,
+                                          'images/${data[index]['postImage']}.jpeg'),
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: 270,
+                                        child: Text(
+                                          overflow: TextOverflow.ellipsis,
+                                          '   ${data[index]['userId']}  ${data[index]['postCreateDate']}\n',
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 270,
+                                        child: Text(
+                                          overflow: TextOverflow.ellipsis,
+                                          '  ${data[index]['postName']}',
+                                          style: const TextStyle(fontSize: 20),
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
                 ],
               ),
             ],
