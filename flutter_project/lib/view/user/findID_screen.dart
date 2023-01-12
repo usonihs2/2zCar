@@ -21,7 +21,6 @@ class _FindIdScreenState extends State<FindIdScreen> {
   late String id;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userPwController = TextEditingController();
     userNameController = TextEditingController();
@@ -120,6 +119,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
     if (i == 1) {
       getJsonData();
     } else {
+      // ignore: use_build_context_synchronously
       _errorDialog(context);
     }
   }
@@ -137,6 +137,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
       data.addAll(result);
     });
     id = data[0]['findID'];
+    // ignore: use_build_context_synchronously
     _showDialog(context);
   }
 

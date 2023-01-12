@@ -22,7 +22,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     data = [];
     imagesFile = [
