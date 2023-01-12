@@ -50,7 +50,7 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
         stream: FirebaseFirestore.instance
             .collection('forecast') // collection > table이름
             .where('userId', isEqualTo: UserMessage.userId)
-            .orderBy('date', descending: true)
+            // .orderBy('date', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

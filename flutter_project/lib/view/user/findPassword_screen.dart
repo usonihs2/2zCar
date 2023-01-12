@@ -106,7 +106,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
   //아이디 삭제 확인
   getJsonData1() async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/find_password_count.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
+        'http://192.168.45.31:8080/Flutter/find_password_count.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -128,7 +128,7 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
   //비밀번호 찾기
   getJsonData() async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/find_password_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
+        'http://192.168.45.31:8080/Flutter/find_password_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지

@@ -163,7 +163,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 유저 정보 수정
   updateUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://localhost:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
+        'http://192.168.45.31:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showUpdateDialog(context);
@@ -199,7 +199,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 탈퇴
   deleteUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://localhost:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
+        'http://192.168.45.31:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showDeleteDialog(context);
