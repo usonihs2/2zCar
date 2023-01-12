@@ -34,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addObserver(this); //shared preference옵져버
     idController = TextEditingController(); //ID 텍스트 컨트롤러
@@ -48,24 +47,23 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
     switch (state) {
       //지금 어느 부분에서 종료되는지 Lifecycle찾기
       case AppLifecycleState.detached:
-        print('detached');
+        // print('detached');
         break;
       case AppLifecycleState.resumed:
-        print('resumed');
+        // print('resumed');
         break;
       case AppLifecycleState.inactive:
-        print('inactive');
+        // print('inactive');
         break;
       case AppLifecycleState.paused: //여기다가 넣어줘야지 정상 작동
         //autoLogin이 false일때 SaharedPreferences내용 지우기 true일때 그냥 두기
 
         autoLogin == false ? _disposeSaharedPreferences() : null;
 
-        print("paused");
+        // print("paused");
         break;
     }
     setState(() {
@@ -314,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 DB에 입력 값 존재 확인
   login(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://localhost:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
@@ -330,11 +328,10 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 탈퇴 여부 확인
   loginDeleteChk(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://localhost:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
-    print('loginDeleteChk${result[0]['check']}');
     if (result[0]['check'] == null) {
       // ignore: use_build_context_synchronously
       _showDialog(context);
@@ -363,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         });
   }
 
-  // DB의 ID, PW와 다를 때
+  // 로그인 시 탈퇴한 ID 일때
   _errorDuplicateDialog(BuildContext context) {
     showDialog(
         context: context,
@@ -411,7 +408,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // DB에서 user 정보를 받아와서 user_message.dart의 변수에 저장
   Future<bool> getJsonData() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
+        'http://localhost:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
 
     var response = await http.get(url);
     //data.clear(); // clear data so that only inserted is added
@@ -440,13 +437,4 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       ),
     );
   }
-
-//뒤로 가면 초기화
-  rebuildData() {
-    setState(() {
-      idController.text = '';
-      passwordController.text = '';
-    });
-  }
 } //end
-

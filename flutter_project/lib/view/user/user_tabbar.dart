@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/user/message.dart';
 import 'package:flutter_project/view/user/main_screen.dart';
 import 'package:flutter_project/view/user/myforecastHistory_screen.dart';
 import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
@@ -16,7 +17,6 @@ class _UserTabbarState extends State<UserTabbar>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = TabController(length: 3, vsync: this);
     //이 페이지 2개랑 연결 위에 떠있는 것 앱바처럼
@@ -24,7 +24,6 @@ class _UserTabbarState extends State<UserTabbar>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.dispose();
     super.dispose();
     //앱 죽기전 써야함 메모리....

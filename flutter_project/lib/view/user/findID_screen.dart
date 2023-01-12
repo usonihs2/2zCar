@@ -21,7 +21,6 @@ class _FindIdScreenState extends State<FindIdScreen> {
   late String id;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userPwController = TextEditingController();
     userNameController = TextEditingController();
@@ -106,7 +105,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
   //아이디 삭제 확인
   getJsonData1() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/find_id_count.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_id_count.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -120,13 +119,14 @@ class _FindIdScreenState extends State<FindIdScreen> {
     if (i == 1) {
       getJsonData();
     } else {
+      // ignore: use_build_context_synchronously
       _errorDialog(context);
     }
   }
 
   getJsonData() async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/find_id_flutter.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_id_flutter.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -137,6 +137,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
       data.addAll(result);
     });
     id = data[0]['findID'];
+    // ignore: use_build_context_synchronously
     _showDialog(context);
   }
 

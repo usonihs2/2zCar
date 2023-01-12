@@ -9,6 +9,4 @@ class UserMessage {
   static String userPhone = '';
   static String userEmail = '';
   static String userAddress = '';
-  //자동 로그인
-  // static bool autoLogin = false;
 }
