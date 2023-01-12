@@ -12,7 +12,7 @@ class BrandScreen extends StatefulWidget {
 }
 
 class _BrandScreen extends State<BrandScreen> {
-  late bool audi;
+  late bool ford;
   late bool benz;
   late bool bmw;
   late bool kia;
@@ -23,17 +23,18 @@ class _BrandScreen extends State<BrandScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    audi = true;
+    ford = true;
     benz = false;
     bmw = false;
     kia = false;
     images = [
-      "images/audi.png",
-      "images/benz.jpeg",
-      "images/bmw.jpeg",
-      "images/kia.jpeg",
+      "images/ford.png",
+      "images/benz.png",
+      "images/bmw.png",
+      "images/kia.png",
     ];
     selectedItem = 0;
+    Repository.brandImage = "images/ford.png";
   }
 
   @override
@@ -64,7 +65,7 @@ class _BrandScreen extends State<BrandScreen> {
                         onSelectedItemChanged: (value) {
                           setState(() {
                             selectedItem = value;
-                            Repository.imagePath = "${images[selectedItem]}";
+                            Repository.brandImage = "${images[selectedItem]}";
                           });
                         },
                         children: [

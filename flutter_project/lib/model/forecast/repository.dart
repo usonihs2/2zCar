@@ -1,4 +1,7 @@
 class Repository {
-  static String imagePath = "";
-  static String modelname = "";
+  static String brandImage = "";
+  static String brandName = "";
+  static String modelImage = "";
+  static String modelName = "";
+  static String modelPath = "";
 }
