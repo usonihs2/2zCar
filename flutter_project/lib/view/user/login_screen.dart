@@ -398,8 +398,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   _saveSharedPreferences();
                   // UserMessage.autoLogin = autoLogin;
                   getJsonData();
-                  Get.off(const UserTabbar())?.then(
-                      (value) => autoLogin == true ? null : rebuildData());
+                  Get.off(const UserTabbar(), arguments: autoLogin);
                   //main 에서 뒤로가기하고 autoLogin이 true면 textfield채워져있고 아니면 비우기
                 },
                 child: const Text('OK'))

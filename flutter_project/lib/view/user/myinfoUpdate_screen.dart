@@ -52,8 +52,8 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              _disposeSaharedPreferences();
-              // value == false ? _disposeSaharedPreferences() : null;
+              // _disposeSaharedPreferences();
+              value == false ? _disposeSaharedPreferences() : null;
               Get.offAll(
                 const LoginScreen(),
               );
@@ -228,7 +228,8 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
 
   _disposeSaharedPreferences() async {
     final pref = await SharedPreferences.getInstance();
-
-    pref.clear(); //지워버리기>>이거 didChangeAppLifecycleState부분 자동로그인에 응용 안하면 SaharedPreferences내용 남아있으니까
+    setState(() {
+      pref.clear(); //지워버리기>>이거 didChangeAppLifecycleState부분 자동로그인에 응용 안하면 SaharedPreferences내용 남아있으니까
+    });
   }
 } // End
