@@ -4,6 +4,7 @@ import 'package:flutter_project/view/user/login_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // 회원 정보 수정 화면
 class MyinfoUpdateScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   late String userAddress;
 
   late List data;
+  var value = Get.arguments ?? '_';
 
   @override
   void initState() {
@@ -48,95 +50,110 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('2Z 헤이딜러'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              value == false ? _disposeSaharedPreferences() : null;
+              Get.offAll(
+                const LoginScreen(),
+              );
+            },
+            icon: const Icon(
+              Icons.logout_sharp,
+            ),
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              '내 정보',
-              style: TextStyle(fontSize: 30),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 40, 50, 20),
-              child: GestureDetector(
-                // on
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                '내 정보',
+                style: TextStyle(fontSize: 30),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 40, 50, 20),
+                child: GestureDetector(
+                  // on
+                  child: TextField(
+                    controller: userIdController,
+                    decoration: const InputDecoration(hintText: '아이디'),
+                    readOnly: true,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
                 child: TextField(
-                  controller: userIdController,
-                  decoration: const InputDecoration(hintText: '아이디'),
-                  readOnly: true,
+                  controller: userPwController,
+                  decoration: const InputDecoration(hintText: '비밀번호'),
+                  obscureText: true,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
-              child: TextField(
-                controller: userPwController,
-                decoration: const InputDecoration(hintText: '비밀번호'),
-                obscureText: true,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
-              child: TextField(
-                controller: userNameController,
-                decoration: const InputDecoration(hintText: '이름'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
-              child: TextField(
-                controller: userPhoneController,
-                decoration: const InputDecoration(hintText: '전화번호'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
-              child: TextField(
-                controller: userEmailController,
-                decoration: const InputDecoration(hintText: '이메일'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
-              child: TextField(
-                controller: userAddressController,
-                decoration: const InputDecoration(hintText: '주소'),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    userId = userIdController.text.trim();
-                    userName = userNameController.text.trim();
-                    userPhone = userPhoneController.text.trim();
-                    userEmail = userEmailController.text.trim();
-                    userAddress = userAddressController.text.trim();
-                    updateUserInfo();
-                    _showUpdateDialog(context);
-                  },
-                  child: const Text('수정'),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                child: TextField(
+                  controller: userNameController,
+                  decoration: const InputDecoration(hintText: '이름'),
                 ),
-                const SizedBox(
-                  width: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                child: TextField(
+                  controller: userPhoneController,
+                  decoration: const InputDecoration(hintText: '전화번호'),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    userId = userIdController.text.trim();
-                    deleteUserInfo();
-                  },
-                  child: const Text('탈퇴'),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                child: TextField(
+                  controller: userEmailController,
+                  decoration: const InputDecoration(hintText: '이메일'),
                 ),
-              ],
-            )
-          ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                child: TextField(
+                  controller: userAddressController,
+                  decoration: const InputDecoration(hintText: '주소'),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      userId = userIdController.text.trim();
+                      userName = userNameController.text.trim();
+                      userPhone = userPhoneController.text.trim();
+                      userEmail = userEmailController.text.trim();
+                      userAddress = userAddressController.text.trim();
+                      updateUserInfo();
+                      _showUpdateDialog(context);
+                    },
+                    child: const Text('수정'),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      userId = userIdController.text.trim();
+                      deleteUserInfo();
+                    },
+                    child: const Text('탈퇴'),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -147,7 +164,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 유저 정보 수정
   updateUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://localhost:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_update_flutter.jsp?userId=$userId&userName=$userName&userEmail=$userEmail&userAddress=$userAddress&userPhone=$userPhone');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showUpdateDialog(context);
@@ -178,7 +195,7 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
   // desc: 탈퇴
   deleteUserInfo() async {
     var url = Uri.parse(// data transfer by get
-        'http://localhost:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_delete_flutter.jsp?userId=$userId');
     await http.get(url);
     // ignore: use_build_context_synchronously
     _showDeleteDialog(context);
@@ -203,5 +220,11 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
             ],
           );
         });
+  }
+
+  _disposeSaharedPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+
+    pref.clear(); //지워버리기>>이거 didChangeAppLifecycleState부분 자동로그인에 응용 안하면 SaharedPreferences내용 남아있으니까
   }
 } // End

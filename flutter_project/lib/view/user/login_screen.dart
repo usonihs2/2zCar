@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/user/user_message.dart';
-import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
+import 'package:flutter_project/view/user/findID_screen.dart';
+import 'package:flutter_project/view/user/findPassword_screen.dart';
 import 'package:flutter_project/view/user/signup_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
@@ -188,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                       padding: const EdgeInsets.fromLTRB(90, 0, 0, 0),
                       child: TextButton(
                         onPressed: () {
-                          //ID찾기와 연결
+                          Get.to(const FindIdScreen());
                         },
                         child: const Text(
                           'ID찾기',
@@ -199,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                     const Text("|"),
                     TextButton(
                       onPressed: () {
-                        //PW찾기와 연결
+                        Get.to(const FindPasswordScreen());
                       },
                       child: const Text(
                         'PW찾기',
@@ -311,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 DB에 입력 값 존재 확인
   login(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
@@ -327,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 탈퇴 여부 확인
   loginDeleteChk(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
@@ -394,9 +395,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   Navigator.of(context).pop();
                   _saveSharedPreferences();
                   getJsonData();
-                  Get.off(const UserTabbar())?.then(
-                      (value) => autoLogin == true ? null : rebuildData());
-                  //main 에서 뒤로가기하고 autoLogin이 true면 textfield채워져있고 아니면 비우기
+                  Get.off(const UserTabbar(), arguments: autoLogin);
                 },
                 child: const Text('OK'))
           ],
@@ -408,7 +407,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // DB에서 user 정보를 받아와서 user_message.dart의 변수에 저장
   Future<bool> getJsonData() async {
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
 
     var response = await http.get(url);
     //data.clear(); // clear data so that only inserted is added
@@ -436,14 +435,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         backgroundColor: Colors.blue,
       ),
     );
-  }
-
-//뒤로 가면 초기화
-  rebuildData() {
-    setState(() {
-      idController.text = '';
-      passwordController.text = '';
-    });
   }
 } //end
 
