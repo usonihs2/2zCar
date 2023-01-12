@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/forecast/forecast_message.dart';
+import 'package:flutter_project/model/forecast/repository.dart';
 import 'package:get/get.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -66,97 +67,214 @@ class _DetailScreenState extends State<DetailScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: const [Text('Year')],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (ForecastResult.year == 'select year') {
-                              ForecastResult.year =
-                                  yearList[0].toString().substring(1, 5);
-                            }
-                          });
-                          _showYearPicker();
-                        },
-                        child: Text(ForecastResult.year)),
-                  ],
-                ),
-                TextField(
-                  controller: odometerController,
-                  onChanged: (value) {
-                    ForecastResult.odometer = odometerController.text;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'odometer',
+        body: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                Row(
-                  children: const [Text('Fuel')],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (ForecastResult.fuel == '') {
-                              ForecastResult.fuelName = fuelList[0];
-                              ForecastResult.fuel = '1';
-                            }
-                          });
-                          _showFuelPicker();
-                        },
-                        child: Text(ForecastResult.fuelName)),
-                  ],
-                ),
-                Row(
-                  children: const [Text('Transmission')],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (ForecastResult.transmission == '') {
-                              ForecastResult.transmissionName =
-                                  transmissionList[0];
-                              ForecastResult.transmission = '1';
-                            }
-                          });
-                          _showTransmissionPicker();
-                        },
-                        child: Text(ForecastResult.transmissionName)),
-                  ],
-                ),
-                Row(
-                  children: const [Text('Drive')],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (ForecastResult.drive == '') {
-                              ForecastResult.driveName = driveList[0];
-                              ForecastResult.drive = '1';
-                            }
-                          });
-                          _showDrivePicker();
-                        },
-                        child: Text(ForecastResult.driveName)),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          Repository.brandImage,
+                          width: 100,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          Repository.modelImage,
+                          width: 200,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      Repository.modelName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Row(
+                      children: const [
+                        Text(
+                          '주행거리',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: TextField(
+                      controller: odometerController,
+                      onChanged: (value) {
+                        ForecastResult.odometer = odometerController.text;
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: '주행거리를 입력하세요',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Row(
+                      children: const [
+                        Text(
+                          '연식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (ForecastResult.year == 'select year') {
+                                ForecastResult.year =
+                                    yearList[0].toString().substring(1, 5);
+                              }
+                            });
+                            _showYearPicker();
+                          },
+                          child: Text(
+                            ForecastResult.year,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Row(
+                      children: const [
+                        Text(
+                          '연료',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (ForecastResult.fuel == '') {
+                                ForecastResult.fuelName = fuelList[0];
+                                ForecastResult.fuel = '1';
+                              }
+                            });
+                            _showFuelPicker();
+                          },
+                          child: Text(
+                            ForecastResult.fuelName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Row(
+                      children: const [
+                        Text(
+                          '변속기',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (ForecastResult.transmission == '') {
+                                ForecastResult.transmissionName =
+                                    transmissionList[0];
+                                ForecastResult.transmission = '1';
+                              }
+                            });
+                            _showTransmissionPicker();
+                          },
+                          child: Text(
+                            ForecastResult.transmissionName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Row(
+                      children: const [
+                        Text(
+                          '구동방식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (ForecastResult.drive == '') {
+                                ForecastResult.driveName = driveList[0];
+                                ForecastResult.drive = '1';
+                              }
+                            });
+                            _showDrivePicker();
+                          },
+                          child: Text(
+                            ForecastResult.driveName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

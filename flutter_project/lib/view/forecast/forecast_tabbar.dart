@@ -48,7 +48,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('예측하기'),
+          title: const Text('2Z Car'),
           bottom: TabBar(
             onTap: (value) {
               setState(() {
@@ -58,16 +58,31 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             controller: tabController,
             labelColor: Colors.amber,
             indicatorColor: Colors.amber,
-            unselectedLabelColor: Colors.red,
+            unselectedLabelColor: Colors.white70,
             tabs: const <Widget>[
               Tab(
-                text: 'Brand',
+                child: Text(
+                  'Brand',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Tab(
-                text: 'Model',
+                child: Text(
+                  'Model',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Tab(
-                text: 'Detail',
+                child: Text(
+                  'Detail',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -87,7 +102,7 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
               child: SizedBox(
-                width: 100,
+                width: 110,
                 child: FloatingActionButton(
                   heroTag: 'prev',
                   shape: RoundedRectangleBorder(
@@ -117,11 +132,12 @@ class _ForecastTabbarState extends State<ForecastTabbar>
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                width: 100,
+                width: 110,
                 child: FloatingActionButton(
                   heroTag: 'home',
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
+                  backgroundColor: Colors.orange,
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.push(
@@ -152,8 +168,8 @@ class _ForecastTabbarState extends State<ForecastTabbar>
                 heroTag: 'next_submit',
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                splashColor: Colors.purpleAccent,
-                backgroundColor: Colors.amber,
+                // splashColor: Colors.purpleAccent,
+                backgroundColor: Colors.blue,
                 onPressed: () {
                   setState(
                     () {
