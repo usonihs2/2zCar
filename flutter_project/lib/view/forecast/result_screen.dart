@@ -27,37 +27,112 @@ class _ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('예측결과'),
+        title: const Text('2Z Car'),
       ),
       body: Center(
         child: Column(
           children: [
+            const SizedBox(
+              height: 100,
+            ),
             Image.asset(
               Repository.brandImage,
-              width: 300,
-              height: 300,
+              width: 150,
+              height: 150,
             ),
             Row(
               children: [
                 Image.asset(
                   Repository.modelImage,
-                  width: 200,
+                  width: 220,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('제조사 : ${Repository.brandName}'),
-                    Text('차량명 : ${Repository.modelName}'),
-                    Text('연식 : ${ForecastResult.year}'),
-                    Text('주행거리 : ${ForecastResult.odometer}'),
-                    Text('연료 : ${ForecastResult.fuelName}'),
-                    Text('변속기 : ${ForecastResult.transmissionName}'),
-                    Text('구동방식 : ${ForecastResult.driveName}'),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '제조사 : ${Repository.brandName}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '차량명 : ${Repository.modelName}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '연식 : ${ForecastResult.year}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '주행거리 : ${ForecastResult.odometer}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '연료 : ${ForecastResult.fuelName}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '변속기 : ${ForecastResult.transmissionName}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                      child: Text(
+                        '구동방식 : ${ForecastResult.driveName}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-            Text('예상 가격은 ${ForecastResult.priceRange} 입니다.'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: Text(
+                '예상 가격은 ${ForecastResult.priceRange} 입니다.',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19,
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,6 +187,8 @@ class _ResultScreenState extends State<ResultScreen> {
                 SizedBox(
                   width: 110,
                   child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange),
                     onPressed: () {
                       ResetStatic.resetStatic();
                       Navigator.pop(context);
