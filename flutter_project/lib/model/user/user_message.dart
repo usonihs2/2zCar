@@ -10,5 +10,9 @@ class UserMessage {
   static String userEmail = '';
   static String userAddress = '';
   //자동 로그인
-  // static bool autoLogin = false;
+  static String id = '';
+  static String code = '';
+  static String name = '';
+  static String dept = '';
+  static String phone = '';
 }
