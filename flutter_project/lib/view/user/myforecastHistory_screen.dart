@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/model/user/message.dart';
 import 'package:flutter_project/model/user/record.dart';
 import 'package:flutter_project/model/user/user_message.dart';
-import 'package:flutter_project/view/user/login_screen.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyforecastHistoryScreen extends StatefulWidget {
@@ -16,14 +14,14 @@ class MyforecastHistoryScreen extends StatefulWidget {
 }
 
 class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
-  late List data;
-  var value = Get.arguments ?? '_';
+  late int num;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    data = [];
-    // getJsonData();
+    num = 0;
+    // Message.num = num;
   }
 
   @override
@@ -46,23 +44,27 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
         //   ),
         // ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('forecast') // collection > table이름
-            .where('userId', isEqualTo: UserMessage.userId)
-            // .orderBy('date', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
+      body: Center(
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('forecast') // collection > table이름
+              .where('userId', isEqualTo: UserMessage.userId)
+              .orderBy('date', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final documents = snapshot.data!.docs; // docs : 내용물
+            // num = snapshot.data!.docs.length;
+
+            return ListView(
+              children: documents.map((e) => _buildItemWidget(e)).toList(),
             );
-          }
-          final documents = snapshot.data!.docs; // docs : 내용물
-          return ListView(
-            children: documents.map((e) => _buildItemWidget(e)).toList(),
-          );
-        },
+          },
+        ),
       ),
     );
   }
@@ -70,17 +72,17 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
   // --- function ---
   Widget _buildItemWidget(DocumentSnapshot doc) {
     final record = Record(
-        brand: doc["brand"],
-        date: doc["date"] ?? Timestamp(0, 0),
-        drive: doc["drive"],
-        fuel: doc["fuel"],
-        model: doc["model"],
-        odometer: doc["odometer"],
-        priceRange: doc["priceRange"],
-        transmission: doc["transmission"],
-        userId: doc["userId"],
-        year: doc["year"]);
-    print('${record.date}');
+      brand: doc["brand"],
+      date: doc["date"],
+      drive: doc["drive"],
+      fuel: doc["fuel"],
+      model: doc["model"],
+      odometer: doc["odometer"],
+      priceRange: doc["priceRange"],
+      transmission: doc["transmission"],
+      userId: doc["userId"],
+      year: doc["year"],
+    );
     return Dismissible(
       direction: DismissDirection.endToStart,
       background: Container(
@@ -109,13 +111,38 @@ class _MyforecastHistoryScreenState extends State<MyforecastHistoryScreen> {
             Message.year = doc["year"];
           },
           child: Card(
-            child: ListTile(
-              title: Text(
-                  'brand : ${record.brand} \n date: ${record.date.toDate()} \n drive: ${record.drive} \n fuel: ${record.fuel} \n model: ${record.model} \n odometer: ${record.odometer} \n priceRange: ${record.priceRange} \n transmission: ${record.transmission} \n userId: ${record.userId} \n year: ${record.year}'),
+            color: Colors.white70,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    // ignore: unnecessary_string_interpolations
+                    '${record.brand}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text(
+                          '사용자ID: ${record.userId} \n날짜: ${record.date} \n구동방식: ${record.drive} \n연료: ${record.fuel} \n모델: ${record.model} \n주행기록: ${record.odometer} \n가격: ${record.priceRange} \n변속기: ${record.transmission}  \n연식: ${record.year}',
+                          // style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 

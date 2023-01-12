@@ -312,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 DB에 입력 값 존재 확인
   login(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://192.168.45.31:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://localhost:8080/Flutter/usedcar_user_loginChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
@@ -328,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // 로그인 시 탈퇴 여부 확인
   loginDeleteChk(String userId, String userPw) async {
     var url = Uri.parse(
-        'http://192.168.45.31:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
+        'http://localhost:8080/Flutter/usedcar_user_loginDeleteChk_flutter.jsp?userId=$userId&userPw=$userPw');
     var loginChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(loginChk.bodyBytes));
     List result = dataConvertedJSON['results'];
@@ -408,7 +408,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   // DB에서 user 정보를 받아와서 user_message.dart의 변수에 저장
   Future<bool> getJsonData() async {
     var url = Uri.parse(
-        'http://192.168.45.31:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
+        'http://localhost:8080/Flutter/usedcar_user_query_flutter.jsp?userId=$userId');
 
     var response = await http.get(url);
     //data.clear(); // clear data so that only inserted is added

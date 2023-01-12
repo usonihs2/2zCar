@@ -105,7 +105,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
   //아이디 삭제 확인
   getJsonData1() async {
     var url = Uri.parse(
-        'http://192.168.45.31:8080/Flutter/find_id_count.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_id_count.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지
@@ -126,7 +126,7 @@ class _FindIdScreenState extends State<FindIdScreen> {
 
   getJsonData() async {
     var url = Uri.parse(
-        'http://192.168.45.31:8080/Flutter/find_id_flutter.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
+        'http://localhost:8080/Flutter/find_id_flutter.jsp?userPw=$userPw&userName=$userName&userEmail=$userEmail');
     var response = await http.get(url);
     data.clear();
     //중복 방지

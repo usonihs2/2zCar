@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Message {
   //firebase
   static String id = '';
@@ -13,4 +11,6 @@ class Message {
   static String transmission = '';
   static String userId = '';
   static String year = '';
+
+  // static int num = 0;
 }
