@@ -434,7 +434,7 @@ class _RegExpState extends State<SignupScreen> {
   // desc: ID 중복 검사
   idDuplicateChk(String userId) async {
     var url = Uri.parse(
-        'http://192.168.10.214:8080/Flutter/usedcar_idChk_flutter.jsp?userId=$userId');
+        'http://192.168.10.214:8080/Flutter/usedcar_user_idChk_flutter.jsp?userId=$userId');
     var idDuplicateChk = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(idDuplicateChk.bodyBytes));
     List result = dataConvertedJSON['results'];

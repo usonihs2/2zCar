@@ -136,7 +136,6 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
                       userEmail = userEmailController.text.trim();
                       userAddress = userAddressController.text.trim();
                       updateUserInfo();
-                      _showUpdateDialog(context);
                     },
                     child: const Text('수정'),
                   ),
