@@ -187,19 +187,19 @@ class _ResultScreenState extends State<ResultScreen> {
         child: Column(
           children: [
             Image.asset(
-              'images/audi.png',
+              Repository.brandImage,
               width: 300,
             ),
             Row(
               children: [
                 Image.asset(
-                  'images/a4.jpeg',
+                  Repository.modelImage,
                   width: 200,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text('제조사 : ${Repository.brandName}'),
+                    Text('제조사 : ${Repository.brandName}'),
                     Text('차량명 : ${Repository.modelName}'),
                     Text('연식 : ${ForecastResult.year}'),
                     Text('주행거리 : ${ForecastResult.odometer}'),
