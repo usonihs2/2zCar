@@ -181,6 +181,11 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
             actions: [
               TextButton(
                 onPressed: () {
+                  // UserMessage.userPw = userPwController.text;
+                  UserMessage.userName = userNameController.text;
+                  UserMessage.userPhone = userPhoneController.text;
+                  UserMessage.userEmail = userEmailController.text;
+                  UserMessage.userAddress = userAddressController.text;
                   Navigator.of(context).pop();
                 },
                 child: const Text('OK'),
