@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/model/user/user_message.dart';
+import 'package:flutter_project/view/user/findID_screen.dart';
+import 'package:flutter_project/view/user/findPassword_screen.dart';
 import 'package:flutter_project/view/user/signup_screen.dart';
 import 'package:flutter_project/view/user/user_tabbar.dart';
 import 'package:get/get.dart';
@@ -60,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         break;
       case AppLifecycleState.paused: //여기다가 넣어줘야지 정상 작동
         //autoLogin이 false일때 SaharedPreferences내용 지우기 true일때 그냥 두기
+
         autoLogin == false ? _disposeSaharedPreferences() : null;
+
         print("paused");
         break;
     }
@@ -187,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                       padding: const EdgeInsets.fromLTRB(90, 0, 0, 0),
                       child: TextButton(
                         onPressed: () {
-                          //ID찾기와 연결
+                          Get.to(const FindIdScreen());
                         },
                         child: const Text(
                           'ID찾기',
@@ -198,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                     const Text("|"),
                     TextButton(
                       onPressed: () {
-                        //PW찾기와 연결
+                        Get.to(const FindPasswordScreen());
                       },
                       child: const Text(
                         'PW찾기',
@@ -392,6 +396,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _saveSharedPreferences();
+                  // UserMessage.autoLogin = autoLogin;
                   getJsonData();
                   Get.off(const UserTabbar())?.then(
                       (value) => autoLogin == true ? null : rebuildData());

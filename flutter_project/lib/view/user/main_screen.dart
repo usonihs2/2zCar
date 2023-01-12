@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           IconButton(
             onPressed: () {
               _timer.cancel();
-              value == false ? _disposeSaharedPreferences() : null;
+              _disposeSaharedPreferences();
               Get.offAll(
                 const LoginScreen(),
               );
