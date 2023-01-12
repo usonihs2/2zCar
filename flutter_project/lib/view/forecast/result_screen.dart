@@ -90,90 +90,71 @@ class _ResultScreenState extends State<ResultScreen> {
       }
     } else if (Repository.modelName == 'C-Class') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '9,000\$ ~ 14,000\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '24,000\$ ~ 33,000\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
-      } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '0\$ ~ 9,000\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '14,000\$ ~ 24,000\$';
       }
     } else if (Repository.modelName == 'E-Class') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '0\$ ~ 8,000\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '8,000\$ ~ 12,000\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
-      } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '12,000\$ ~ 20,000\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '20,000\$ ~ 34,000\$';
       }
     } else if (Repository.modelName == 'S-Class') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '14,500\$ ~ 34,000\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '0\$ ~ 8,500\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
-      } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '8,500\$ ~ 14,500\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '34,000\$ ~ 57,000\$';
       }
     } else if (Repository.modelName == 'Soul') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '5,000\$ ~ 7,500\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '15,000\$ ~ 20,000\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
+        ForecastResult.priceRange = '7,000\$ ~ 9,500\$';
       } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '11,500\$ ~ 15,000\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '8,500\$ ~ 12,000\$';
       }
     } else if (Repository.modelName == 'Optima') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '4,000\$ ~ 8,000\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '11,000\$ ~ 15,000\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
+        ForecastResult.priceRange = '9,000\$ ~ 13,000\$';
       } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '16,000\$ ~ 20,000\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '7,500\$ ~ 10,000\$';
       }
     } else if (Repository.modelName == 'Forte') {
       if (ForecastResult.forecastResult == '1') {
-        ForecastResult.priceRange = '6296\$ ~ 10961\$';
+        ForecastResult.priceRange = '6,000\$ ~ 7,500\$';
       } else if (ForecastResult.forecastResult == '2') {
-        ForecastResult.priceRange = '13997\$ ~ 25175\$';
+        ForecastResult.priceRange = '7,500\$ ~ 11,000\$';
       } else if (ForecastResult.forecastResult == '3') {
-        ForecastResult.priceRange = '4348\$ ~ 7874\$';
+        ForecastResult.priceRange = '15,000\$ ~ 18,500\$';
       } else if (ForecastResult.forecastResult == '4') {
-        ForecastResult.priceRange = '28242\$ ~ 36998\$';
+        ForecastResult.priceRange = '9,500\$ ~ 14,000\$';
       } else {
-        ForecastResult.priceRange = '8845\$ ~ 15996\$';
+        ForecastResult.priceRange = '3,500\$ ~ 6,000\$';
       }
     }
-//---
-    if (ForecastResult.forecastResult == '1') {
-      ForecastResult.priceRange = '10,000\$ ~ 15,000\$';
-    } else if (ForecastResult.forecastResult == '2') {
-      ForecastResult.priceRange = '15,000\$ ~ 20,000\$';
-    } else if (ForecastResult.forecastResult == '3') {
-      ForecastResult.priceRange = '20,000\$ ~ 25,000\$';
-    } else if (ForecastResult.forecastResult == '4') {
-      ForecastResult.priceRange = '25,000\$ ~ 30,000\$';
-    } else {
-      ForecastResult.priceRange = '30,000\$ ~ 35,000\$';
-    }
-// ---
     starCheck = false;
   }
 
