@@ -52,7 +52,8 @@ class _MyInfoState extends State<MyinfoUpdateScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              value == false ? _disposeSaharedPreferences() : null;
+              _disposeSaharedPreferences();
+              // value == false ? _disposeSaharedPreferences() : null;
               Get.offAll(
                 const LoginScreen(),
               );
