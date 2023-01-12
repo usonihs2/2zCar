@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/view/forecast/forecast_tabbar.dart';
 import 'package:flutter_project/view/user/login_screen.dart';
-import 'package:flutter_project/view/user/myinfoUpdate_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,7 +54,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
               );
             },
             icon: const Icon(
-              Icons.logout,
+              Icons.logout_sharp,
             ),
           ),
         ],
@@ -82,13 +81,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Column(
                   children: [
-                    // Text(
-                    //   imagesFile[currentPage],
-                    //   style: const TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 20,
-                    //   ),
-                    // ),
                     Image.asset(
                       'images/${imagesFile[currentPage]}',
                       width: 500,
@@ -133,7 +125,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                   ),
                 ],
               ),
-              Text('$value')
             ],
           ),
         ),
