@@ -87,6 +87,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 child: ElevatedButton(
                   onPressed: () {
                     _timer.cancel();
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
