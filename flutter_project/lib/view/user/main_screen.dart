@@ -50,21 +50,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       appBar: AppBar(
         title: const Text('Home'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              _timer.cancel();
-              value == false ? _disposeSaharedPreferences() : null;
-              // _disposeSaharedPreferences();
-              Get.offAll(
-                const LoginScreen(),
-              );
-            },
-            icon: const Icon(
-              Icons.logout_sharp,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -253,13 +238,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       if (currentPage >= imagesFile.length) {
         currentPage = 0;
       }
-    });
-  }
-
-  _disposeSaharedPreferences() async {
-    final pref = await SharedPreferences.getInstance();
-    setState(() {
-      pref.clear(); //지워버리기>>이거 didChangeAppLifecycleState부분 자동로그인에 응용 안하면 SaharedPreferences내용 남아있으니까
     });
   }
 }//end
