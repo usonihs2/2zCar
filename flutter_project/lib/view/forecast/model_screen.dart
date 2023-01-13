@@ -70,8 +70,8 @@ class _ModelScreen extends State<ModelScreen> {
         : Repository.brandImage == "images/ford.png"
             ? modelImage = [
                 'images/f-150.png',
-                'images/escape.png',
                 'images/explorer.png',
+                'images/escape.png',
               ]
             : Repository.brandImage == "images/bmw.png"
                 ? modelImage = [
